@@ -14,11 +14,13 @@ function build {
 cd libs
 
 ##
-## Build gsKit
+## Build libjpeg and libtiff from ps2sdk-ports
 ##
-cd gsKit
+cd ps2sdk/libjpeg
 make clean all install
-cd ..
+cd ../libtiff
+make clean all install
+cd ../..
 
 ##
 ## Build cmake projects
@@ -30,6 +32,14 @@ build zlib
 build libpng "-DPNG_SHARED=OFF -DPNG_STATIC=ON"
 build freetype
 build libconfig "-DBUILD_EXAMPLES=OFF -DBUILD_TESTS=OFF"
+cd ..
+
+##
+## Build gsKit
+##
+cd gsKit
+./setup.sh
+make clean all install
 cd ..
 
 cd ..

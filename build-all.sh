@@ -3,3 +3,4 @@
 ./build-ps2sdk.sh
 ./build-tools.sh
 ./build-libs.sh
+./build-apps.sh
