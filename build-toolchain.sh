@@ -4,9 +4,9 @@
 OSVER=$(uname)
 ## Apple needs to pretend to be linux
 if [ ${OSVER:0:6} == Darwin ]; then
-	TARG_XTRA_OPTS="--build=i386-linux-gnu --host=i386-linux-gnu"
+	TARG_XTRA_OPTS="--build=i386-linux-gnu --host=i386-linux-gnu --enable-cxx-flags=-G0"
 else
-	TARG_XTRA_OPTS=""
+	TARG_XTRA_OPTS="--enable-cxx-flags=-G0"
 fi
 
 
@@ -47,7 +47,7 @@ for TARGET in "ee" "iop" "dvp"; do
 	fi
 
 	## Compile and install.
-	make -j $PROC_NR CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=0" && make install || { exit 1; }
+	make clean && make -j $PROC_NR CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=0" && make install && make clean || { exit 1; }
 
 	## Exit the build directory.
 	cd .. || { exit 1; }
@@ -69,7 +69,7 @@ for TARGET in "ee" "iop"; do
 	fi
 
 	## Compile and install.
-	make -j $PROC_NR && make install || { exit 1; }
+	make clean && make -j $PROC_NR && make install && make clean || { exit 1; }
 
 	## Exit the build directory.
 	cd .. || { exit 1; }
@@ -87,7 +87,7 @@ for TARGET in "ee"; do
 	../../newlib/configure --prefix="$PS2DEV/$TARGET" --target="$TARGET" || { exit 1; }
 
 	## Compile and install.
-	make -j $PROC_NR && make install || { exit 1; }
+	make clean && make -j $PROC_NR && make install && make clean || { exit 1; }
 
 	## Exit the build directory.
 	cd .. || { exit 1; }
@@ -105,7 +105,7 @@ for TARGET in "ee"; do
 	../../gcc/configure --prefix="$PS2DEV/$TARGET" --target="$TARGET" --enable-languages="c,c++" --with-newlib --with-headers="$PS2DEV/$TARGET/$TARGET/include" $TARG_XTRA_OPTS || { exit 1; }
 
 	## Compile and install.
-	make -j $PROC_NR && make install || { exit 1; }
+	make clean && make -j $PROC_NR && make install && make clean || { exit 1; }
 
 	## Exit the build directory.
 	cd .. || { exit 1; }
