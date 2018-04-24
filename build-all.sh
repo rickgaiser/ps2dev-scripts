@@ -1,6 +1,7 @@
 #!/bin/bash
-./build-toolchain.sh
-./build-ps2sdk.sh
-./build-tools.sh
-./build-libs.sh
-./build-apps.sh
+./build-toolchain.sh || { exit 1; }
+./build-ps2sdk.sh || { exit 1; }
+./build-tools.sh || { exit 1; }
+./build-libs.sh || { exit 1; }
+./build-apps.sh || { exit 1; }
+

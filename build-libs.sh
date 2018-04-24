@@ -17,9 +17,9 @@ cd libs
 ## Build libjpeg and libtiff from ps2sdk-ports
 ##
 cd ps2sdk/libjpeg
-make clean all install
+make clean all install || { exit 1; }
 cd ../libtiff
-make clean all install
+make clean all install || { exit 1; }
 cd ../..
 
 ##
@@ -38,8 +38,11 @@ cd ..
 ## Build gsKit
 ##
 cd gsKit
-./setup.sh
-make clean all install
+export LIBJPEG=$PS2SDK/ports
+export LIBPNG=$PS2SDK/ports
+export ZLIB=$PS2SDK/ports
+#export LIBTIFF=$PS2SDK/ports
+make clean all install || { exit 1; }
 cd ..
 
 cd ..
