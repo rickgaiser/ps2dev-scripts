@@ -13,7 +13,7 @@ else
 fi
 
 ## Enter the toolchain/ps2sdk directory
-cd toolchain/ps2sdk
+cd libs/ps2sdk
 
 # make sure ps2sdk's makefile does not use it
 unset PS2SDKSRC

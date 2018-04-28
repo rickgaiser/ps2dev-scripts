@@ -21,16 +21,20 @@ cd toolchain/build
 ##
 ## Build binutils
 ##
-for TARGET in "ee" "iop" "dvp"; do
+target_names=("ee" "iop" "dvp")
+#targets=("ee" "mipsel-ps2-irx" "dvp")
+targets=("ee" "iop" "dvp")
+extra_opts=("" "" "")
+for ((i=0; i<${#target_names[@]}; i++)); do
+	TARG_NAME=${target_names[i]}
+	TARGET=${targets[i]}
+	TARG_XTRA_OPTS=${extra_opts[i]}
+
 	## Create and enter the build directory.
-	rm -rf binutils-$TARGET && mkdir binutils-$TARGET && cd binutils-$TARGET || { exit 1; }
+	rm -rf binutils-$TARG_NAME && mkdir binutils-$TARG_NAME && cd binutils-$TARG_NAME || { exit 1; }
 
 	## Configure the build.
-	if [ ${OSVER:0:6} == Darwin ]; then
-		CC=/usr/bin/gcc CXX=/usr/bin/g++ LD=/usr/bin/ld CFLAGS="-O0 -ansi -Wno-implicit-int -Wno-return-type" ../../binutils/configure --prefix="$PS2DEV/$TARGET" --target="$TARGET" || { exit 1; }
-	else
-		../../binutils/configure --prefix="$PS2DEV/$TARGET" --target="$TARGET" || { exit 1; }
-	fi
+	../../"$TARG_NAME"/binutils/configure --prefix="$PS2DEV/$TARG_NAME" --target="$TARGET" $TARG_XTRA_OPTS || { exit 1; }
 
 	## Compile and install.
 	make clean && make -j $PROC_NR CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=0" && make install && make clean || { exit 1; }

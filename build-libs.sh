@@ -16,7 +16,7 @@ cd libs
 ##
 ## Build libjpeg and libtiff from ps2sdk-ports
 ##
-cd ps2sdk/libjpeg
+cd ps2sdk-ports/libjpeg
 make clean all install || { exit 1; }
 cd ../libtiff
 make clean all install || { exit 1; }
