@@ -1,7 +1,7 @@
 #!/bin/bash
 
-TARG_NAME="ee"
-TARGET="ee"
+TARG_NAME="iop"
+TARGET="iop"
 
 TARG_XTRA_OPTS=""
 PROC_NR=$(nproc)
