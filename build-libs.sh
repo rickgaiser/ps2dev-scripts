@@ -35,6 +35,11 @@ build libconfig "-DBUILD_EXAMPLES=OFF -DBUILD_TESTS=OFF"
 cd ..
 
 ##
+## Fix legacy applications using libz.a instead of libzlib.a
+##
+ln -sf "$PS2SDK/ports/lib/libzlib.a" "$PS2SDK/ports/lib/libz.a"
+
+##
 ## Build gsKit
 ##
 cd gsKit
